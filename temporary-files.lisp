@@ -26,6 +26,7 @@
         (ct:free buffer)
         (ct:free buffer1)))
     #+ecl (si:getenv x)
+    #+clasp (ext:getenv x)
     #+gcl (system:getenv x)
     #+lispworks (lispworks:environment-variable x)
     #+mcl (ccl:with-cstrs ((name x))
@@ -33,7 +34,7 @@
               (unless (ccl:%null-ptr-p value)
                 (ccl:%get-cstring value))))
     #+sbcl (sb-ext:posix-getenv x)
-    #-(or abcl allegro clisp clozure cmu cormanlisp ecl gcl lispworks mcl sbcl scl xcl)
+    #-(or abcl allegro clisp clozure cmu cormanlisp ecl clasp gcl lispworks mcl sbcl scl xcl)
     (error "~S is not supported on your implementation" 'getenv))
 
   (defun directory-from-environment (environment-variable-name)
